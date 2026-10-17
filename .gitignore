@@ -1,0 +1,38 @@
+
+# Maven build output
+**/target/
+
+# TestNG generated reports
+**/test-output/
+
+# Java compiled files
+*.class
+
+# Log files
+*.log
+
+# IDE files - IntelliJ IDEA
+.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# VS Code
+.vscode/
+
+# macOS system files
+.DS_Store
+
+# Temporary files
+*.tmp
+*.swp
+
+# Java crash dumps
+hs_err_pid*
+
+
+# Eclipse workspace metadata
+.metadata/

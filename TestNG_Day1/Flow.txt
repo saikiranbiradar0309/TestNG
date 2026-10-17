@@ -1,0 +1,15 @@
+IMPORTANT:
+
+a. Add Selenium Java Dependency
+b. Add TestNG Dependency
+
+
+======================================
+
+IMPORTANT:
+
+- In TestNG There wont be main method
+- we use @Test
+
+
+
