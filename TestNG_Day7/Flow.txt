@@ -1,0 +1,139 @@
+How to Read Test Data from Excel sheet?
+
+--------------------------------  
+
+01. Create object to FileInputStream class by passing file locations 
+	
+	FileInputStream fis = new FileInputStream("File Location");
+	
+	
+
+02. Create Object of XSSFWorkbook class by passing FileInputStream instance to load all sheets
+	
+	XSSFWorkbook workbook = new (fis);
+	
+
+	
+03. Load/Focus on specific sheet using getSheet() method
+	
+	XSSFSheet sheet = workbook.getSheet("sheetName");
+	
+
+
+04. Capture test data using Excel Sheet
+	
+	String firstName = sheet.getRow(1).getCell(0).getStringCellString();
+	
+	
+	//Capture niranjan mobile number
+	String phone = sheet.getRow(3).getCell(2).getRawValue();
+	
+
+	
+=====================================================
+
+
+How to Achive Data Driven Testing?		*****************
+	
+
+
+@DataProvider(name="registerTestData")
+public Object[][] getTestData()
+{
+	Object[][] data = new Object[3][3];
+	
+	data[0][0] = "Abhishek";
+	data[0][1] = "Biradar";
+	data[0][2] = 6363636363;
+	
+	
+	data[1][0] = "Tukaram";
+	data[1][1] = "Patil";
+	data[1][2] = 8383838383;
+	
+	
+	data[2][0] = "Vasanthrao";
+	data[2][1] = "Biradar";
+	data[2][2] = 9999999999;
+	
+	
+	return data;
+}
+
+
+
+@Test(dataProvider="registerTestData")
+public void registerTestCases(String fname, String lname, int mobile)
+{
+	WebDriver driver = new ChromeDriver();
+	
+	driver.get("");
+	
+	driver.findElement(By.xpath("")).sendKeys(fname);
+	driver.findElement(By.xpath("")).sendKeys(lname);
+	driver.findElement(By.xpath("")).sendKeys(mobile);
+}
+
+
+
+=====================================================
+
+
+@DataProvider(name="loadTestData")
+public Object[][] getTestData()
+{
+
+	Object[][] data = new Object[2][2];
+	
+	FileInputStream fis = new FileInputStream
+			(System.getProperty("user.dir") + "/Sheets/TestData.xlsx");
+			
+	XSSFWorkbook workbook = new XSSFWorkbook(fis);
+	
+	XSSFSheet sheet = workbook.getSheet("Register");
+	
+	data[0][0] = sheet.getRow[0].getCell[0].getStringCellValue();
+	data[0][1] = sheet.getRow[0].getCell[1].getStringCellValue();
+	
+	data[1][0] = sheet.getRow[1].getCell[0].getStringCellValue();
+	data[1][1] = sheet.getRow[1].getCell[1].getStringCellValue();
+
+}
+
+
+- Here issue is if we have 10 rows and 10 columns its hectic to write same step 
+  multiple times, so its not a good approach
+
+
+=====================================================
+
+
+
+If we want to know how many rows and columns present in our sheet
+
+
+
+
+		FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "/Sheets/TestData.xlsx");
+		
+		XSSFWorkbook workbook = new XSSFWorkbook(fis);
+		
+		XSSFSheet sheet = workbook.getSheet("Sheet Name");
+		
+		
+		int totalRows = sheet.getLastRowNum()+1;
+		
+		int totalCells = sheet.getRow(0).getLastCellNum();
+		
+		
+		Object[][] data = new Object[totalRows][totalCells];
+
+		for(int i=0; i<totalRows; i++)
+		{
+			for(int j=0; j<totalCells; j++)
+			{
+				data[i][j] = sheet.getRow(i).getCell(j).getStringCellValue;
+			}
+		}
+		
+		return data;
