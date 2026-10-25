@@ -1,0 +1,156 @@
+01. Create a listener class and implements ITestListener
+
+
+02. Right Click --> Source --> Click Override/implement Methods 
+	--> Select only required methods --> onFinish, onStart, onTestFailure, onTestSkipped
+	, onTestStart, onTestSuccess --> OK
+
+
+03. Remove unwanted code
+
+
+04. Now capture the suite name(onStart)
+	String suiteName = context.getSuite().getName();
+	System.out.println(suiteName + "Suite is started");
+	
+	
+	Do the same for onFinish
+
+
+05. Now capture the Test Case Name(onTestStart)
+	String testCaseName = result.getMethod().getMethodName();
+	System.out.println(testCaseName + "Test Case Started");
+	
+	
+	Do the same for onTestSuccess, onTestFailure, onTestSkipped, 
+	
+	
+================================
+
+
+Now Create Test class
+
+@Test
+public void login()
+{
+	// Login Code for selenium
+}
+
+
+@Test
+public void sortProduct()
+{
+	// sortProduct Code for selenium
+}
+
+
+@Test
+public void selectProductAndProceed()
+{
+	// selectProductAndProceed Code for selenium
+}
+
+
+@Test
+public void personalDetails()
+{
+	// personalDetails Code for selenium
+}
+
+
+================================
+
+
+Create XML File for Test Case Class
+
+After Suite add below lines
+  
+  
+  <listeners>
+  
+  	<listener class-name="packageName.className"></listener>
+  
+  </listeners>
+
+================================
+
+Generate Extent Reports
+
+
+Pre-Req: Add extentReports maven dependency
+
+01. If Suite is started start generating ExtentReports
+	
+	a. Start Generating Reports
+	   ExtentReports extentReports = new ExtentReports();
+	   
+	   
+	b. Store Extent Reports in Desired Location
+	   ExtentSparkReporter reporter = new ExtentSparkReporter("destination location in HTML Format");
+	
+	
+	c. Attach generated report in attacher reporter
+	   extentReports.attachReporter(reporter);
+
+-----------------------
+
+02. If test case is started add test cases names in reports
+    
+    a. Capture test case name and add the test case name in reports
+       
+       String testCaseName = result.getMethod().getMethodName();
+       
+       ExtentTest extentTest = extentReports.createTest(testCaseName);
+
+-----------------------
+
+
+03. If test case is pass add test cases pass Log in reports
+	
+	a. Capture test case name and add test cases pass log name in reports 
+	   String testCaseName = result.getMethod().getMethodName();
+	   extentTest.log(Status.PASS,"Test Case Pass Name is " + testCaseName)
+
+-----------------------
+
+
+04. If test case is fail add test cases pass Log in reports
+	
+	a. Capture test case name and add test cases fail log name in reports 
+	   String testCaseName = result.getMethod().getMethodName();
+	   extentTest.log(Status.FAIL,"Test Case Fail Name is " + testCaseName)
+
+-----------------------
+
+
+05. If test case is skip add test cases pass Log in reports
+	
+	a. Capture test case name and add test cases skip log name in reports 
+	   String testCaseName = result.getMethod().getMethodName();
+	   extentTest.log(Status.SKIP,"Test Case Skip Name is " + testCaseName)
+
+
+-----------------------
+
+
+06. If suite is completed stop generating reports
+	
+	a. Stop generating reports
+	
+	   extentReports.flush();
+
+================================================================
+
+
+If test case is passed or failed capture and store the screenshot
+
+ 
+ Requirement: Make separate directories for passed and failed test case screenshots
+
+
+
+
+
+
+
+
