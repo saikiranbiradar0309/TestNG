@@ -1,0 +1,39 @@
+@Factory Annotation
+
+
+public class sample1()
+{
+
+	@Test(priority=1)
+	public void login()
+	{
+		System.out.println("Login Test Case");
+	}
+	
+	
+	@Test(priority=2)
+	public void home()
+	{
+		System.out.println("Home Test Case");
+	}
+}
+
+
+---------
+
+public class TestFactory
+{
+	
+	@Factory
+	public Object[] abc()
+	{
+		Sample1 obj1 = new Sample1();
+		Sample1 obj2 = new Sample1();
+		Sample1 obj3 = new Sample1();
+		
+		
+		Object[] execute = new Object[3];
+		
+		return execute;
+	}
+}
